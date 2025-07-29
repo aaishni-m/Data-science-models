@@ -1,0 +1,57 @@
+import numpy as np
+import pandas as pd
+
+data = {"Name":["Myra", "Anya","Aaishni","Vriddhi"],"Maths":[32,65,87,None],"Science":[67,34,99,None]}
+
+
+df = pd.DataFrame(data)
+print(df)
+print(df.isnull().sum())
+print(df.dtypes)
+
+#df['Maths']=df['Maths'].interpolate()
+#df['Maths']=df['Maths'].fillna(df['Maths'].mean())
+
+print("\nsort")
+print(df.sort_values(by='Name'))
+
+print(df)
+#df['Maths'] = df['Maths'].astype('int64')
+print(df)
+
+df['Rank_Science'] = df['Science'].rank(method='dense',ascending=False)
+#df['Rank_Science'] = df['Rank_Science'].astype('int64')
+df['Rank_Maths'] = df['Maths'].rank(method='dense',ascending=False)
+#df['Rank_Maths'] = df['Rank_Maths'].astype('int64')
+print(df)
+
+
+
+
+i=0; 
+for i in range(0,df.shape[0]): 
+    if(df["Rank_Maths"][i]==1.0):
+        print(f"Congratulations on coming first in Maths {df['Name'][i]}")
+    if(df["Rank_Science"][i]==1.0):
+        print(f"Congratulations on coming first in Science {df['Name'][i]}")
+    if(pd.isna(df['Maths'][i]) or pd.isna(df['Science'][i]) or df['Maths'][i] < 35.0 or df['Science'][i] < 35.0): 
+        print(f"Please sit for the retest {df['Name'][i]}")
+        
+print('\nMaths')
+print(df['Maths'].mean())
+df['Total mks'] = df[['Maths','Science']].sum(axis=1)
+print(df[['Maths','Science']].sum())
+#print(df.iloc[0,1])
+print(df[df['Maths']<35])
+print(df['Maths']<35)
+#print(df[3]); 
+print(df[df.index==3])
+
+
+
+
+
+
+
+
+
